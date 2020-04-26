@@ -1,0 +1,206 @@
+CREATE DATABASE Umuzi
+
+use Umuzi
+
+
+CREATE TABLE Customers
+(
+CustomerID int primary key,
+FirstName varchar(50),
+LastName varchar(50),
+Gender varchar,
+Address varchar(200),
+Phone varchar(10),
+Email varchar(100),
+City varchar(20),
+Country varchar(50)
+);
+
+
+CREATE TABLE Employees
+(
+EmployeeID int primary key,
+FirstName varchar(50),
+LastName varchar(50),
+Email varchar(100),
+JobTitle varchar(20)
+);
+
+CREATE TABLE Orders
+(
+OrderId int primary key,
+ProductID int foreign key,
+PaymentID int foreign key,
+FulfilledByEmployeeID int,
+DateRequired dattime,
+DateShipped datetime,
+Status varchar(20)
+);
+
+CREATE TABLE Payments
+(
+CustomerId int primary key,
+PaymentID int foreign key,
+PaymentDate datetime,
+Amount decimal
+);
+
+
+
+CREATE TABLE Products
+(
+ProductId int primary key,
+ProductName varchar(100),
+Description varchar(300),
+BuyPrice decimal
+);
+
+
+
+insert into Customers
+(CustomerID,FirstName,LastName,Gender,Address,Phone,Email,City,Country)
+values(1,'John','Hibert','Male','284 chaucer st',084789657,'john@gmail.com','Johannesburg','South Africa');
+
+
+insert into Customers
+(CustomerID,FirstName,LastName,Gender,Address,Phone,Email,City,Country)
+values(2,'Thando','Sithole','Female','240 Sect 1',0794445584,'thando@gmail.com','Cape Town','South Africa');
+
+
+insert into Customers
+(CustomerID,FirstName,LastName,Gender,Address,Phone,Email,City,Country)
+values(3,'Leon','Glen','Male','81 Everton Rd,Gillits',0820832830,'Leon@gmail.com','Durban','South Africa');
+
+
+insert into Customers
+(CustomerID,FirstName,LastName,Gender,Address,Phone,Email,Country)
+values(4,'Charl','Muller','Male','290A Dorset Ecke',+44856872553,'Charl.muller@yahoo.com','Berlin','Germany');
+
+
+insert into Customers
+(CustomerID,FirstName,LastName,Gender,Address,Phone,Email,City,Country)
+values(5,'Julial','Stein','Female','2 Wernerring',+448672445058,'Js234@yahoo.com','Frankfurt','Germany');
+
+
+
+insert into Employees
+(EmployeeID,FirstName,LastName,Email,JobTitle)
+values(1,'Kani','Matthew','mat@gmail.com','Manager');
+
+insert into Employees
+(EmployeeID,FirstName,LastName,Email,JobTitle)
+values(2,'Lesly','Cronje','LesC@gmail.com','Clerk');
+
+insert into Employees
+(EmployeeID,FirstName,LastName,Email,JobTitle)
+values(3,'Gideon','Maduku','m@gmail.com','Accountant');
+
+
+insert into Orders
+(ProductID,PaymentID,FulfilledByEmployeeID,DateRequired,DateShipped,Status)
+values(1,1,2,05-09-2018,,'Not shiped');
+
+insert into Orders
+(OrderId,ProductID,PaymentID,FulfilledByEmployeeID,DateRequired,DateShipped,Status)
+values(1,2,2,04-09-2018,03-09-2018,'Shiped');
+
+insert into Orders
+(OrderId,ProductID,PaymentID,FulfilledByEmployeeID,DateRequired,DateShipped,Status)
+values(3,3,3,06-09-2018,,'Not shipped');
+
+
+insert into Payments
+(CustomerId,PaymentID auto,PaymentID,Amount)
+values(1,1,3,01-09-2018,R150.75);	
+
+
+insert into Payments
+(CustomerId,PaymentID auto,PaymentID,Amount)
+values(5,2,3,03-09-2018,R150.75);
+
+insert into Payments
+(CustomerId,PaymentID auto,PaymentID,Amount)
+values(4,3,3,03-09-2018,R700.60);
+
+
+insert into Products
+(ProductId,ProductName,Description,BuyPrice)
+values(4,'Harley Davidson Chopper','This replica features working kickstand , front suspension, gear-shift lever',R150.75);
+
+
+insert into Products
+(ProductId,ProductName,Description,BuyPrice)
+values(2,'Classic Car','Turnable front wheels, steering function',R550.75);
+
+
+insert into Products
+(ProductId,ProductName,Description,BuyPrice)
+values(3,'Sports car','Turnable front wheels, steering function',R700.60);
+
+
+
+
+
+SELECT * 
+FROM Customers;
+
+
+SELECT FistName,LastName
+FROM Customers;
+
+SELECT FirstName,LastName
+FROM Customers
+Where CustomerID = 1;
+
+update Customers
+set FirstName='Lerato',LastName='Mabitso'
+where CustomerID = 1;
+
+delete FROM Customers
+where CustomerID = 2;
+
+SELECT DISTINCT Status
+FROM Orders;
+
+SELECT MAX(Amount)
+FROM Payments;
+
+SELECT * 
+FROM Customers
+ORDERED BY Country;
+
+SELECT * 
+FROM Products
+WHERE 100 <= BuyPrice and BuyPrice <= 600;
+
+SELECT * 
+FROM Customers
+WHERE Country = 'Germany' AND City = 'Berlin';
+
+SELECT * 
+FROM Customers
+WHERE City = 'Cape Town' OR City = 'Durban';
+
+SELECT * 
+FROM Products
+WHERE BuyPrice > 500;
+
+SELECT SUM(Amount)
+FROM Payments;
+
+SELECT COUNT(*)
+FROM Orders
+WHERE Status = 'Shiped';
+
+SELECT AVG(BuyPrice)
+FROM Products;
+
+SELECT * 
+FROM Payments Inner Join Customers
+on Payments.CustomerId = Customers.CustomerId;
+
+
+SELECT * 
+FROM Products
+HAVING Description = 'Turnable front wheels';
+
